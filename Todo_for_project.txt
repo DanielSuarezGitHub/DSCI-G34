@@ -1,6 +1,0 @@
-What is left todo:
-Creates a final visualization of the analysis (title this figure 5 and don't forget to include a legend)
-Use the classifier to perform prediction of a random observation. (include description of why we are doing this including what the observation means and how it reflects the accuracy of the calssifier.
-Add data description for sessions data set.
-
-UPDATE RESULTS AFTER UPSAMPLING DATA
