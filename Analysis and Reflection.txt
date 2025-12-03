@@ -1,0 +1,33 @@
+Ashton Atanacio - Group 34
+
+Analysis:
+
+The goal of this project was to determine whether two features - total hours played and self-reported experience level - could predict whether a Minecraft player subscribed to the community newsletter. Because the data came from a custom Minecraft server used in a university setting, the aim was to understand not only the predictive relationship but also the implications for engagement patterns and future data collection.
+
+Wrangling data:
+The group worked on linking the two datasets (sessions.csv & players.csv) together as one dataset reports experience level, while the other dataset reports number of hours played. Although players.csv also reports number of hours played, sessions.csv was used as it provided more information regarding play time. As both datasets have one variable in common (hashedEmail), they were combined and merged into one dataset: players_data_tidy. In it showed the columns: experience, subscribe, and played_hours. 
+
+As KNNs require numerical values, experience values were changed from categorical variables to numerical variables ranging from 1-5 based on the five categories of experience (Beginner, Amateur, Regular, Veteran, Pro). Furthermore, timestamps used in sessions.csv were converted into DateTime format for a more effective analysis.
+
+Visualizing data:
+Figure 1: A histogram of playtime faceted by subscription status revealed that almost all players were subscribed regardless of number of hours played. In the histogram shown, it can be observed that a high amount of players had an incredibly low playtime yet are still subscribed. Thus, this visualization must not be taken into further account as it does not seem as though total hours played relate to subscription status. The histogram was approached cautiously.
+
+Figure 2: A bar chart of subscription rates across experience categories showed clear variation. “Regular” players had the highest subscription rate, while veterans and pros subscribed at lower rates. However, all experience levels were close in subscription rate from one another as they were all close to being levelled, showing that perhaps subscription status does not simply rely on experience level. One thing I would like to add was that the use of the original players.csv dataset was a good idea as, in this graph, only experience level and subscription status was important. If the players_data_tidy table was used, then experience level would show as numerical values rather than categorical values, further confusing the reader.
+
+Figure 3: A plot of average played hours by experience level showed surprising results: “Regular” and “Amateur” players had the highest mean playtime. “Pro,” “Beginner,” and “Veteran” players showed much lower engagement. This contradicted the group's initial intuition and indicated that both predictors provided unique information, not merely scaled versions of each other. The lack of a simple linear trend reinforced the choice of a flexible, nonparametric classifier like KNN.
+
+All these graphs were made well and intelligently as only columns needed were utilized. Moreover, the use of colour and titles definitely aided in the reader's POV as it was easier to digest the information laid in front.
+
+Model Preparation and Building:
+K-Nearest Neighbors Classification was used in this project as it was suited for this type of problem. Since it was used to calculate distance, two numerical non-linear variables were used to predict subscription status of the player. Model performance was evaluated with accuracy, precision, and recall, with accuracy being the main evaluator. The training dataset and testing dataset was split 80/20 and standardization was used to prevent the model from favouring one variable over the other.
+
+In building the model, the group opted for a 10-cross fold - where the model gets trained on 9 parts of the data and gets tested on 1 - rather than a 5-cross fold as it was seen to have higher accuracy results. The group used GridSearchCV to automatically test many versions of the KNN model, each with a different number of neighbors, and checked which one gave the best prediction accuracy. After GridSearchCV tested all the different values of n_neighbors, it produced a table of results. From that table, the number of neighbors tested, the average accuracy for each number of neighbors (mean_test_score), and the std_mean_score was pulled out. But, GridSearchCV does not directly give you the standard error. Instead, it gives the standard deviation (std_test_score). To convert standard deviation to standard error, the std_test_score was divided by the square root of the amount of folds (10). The column std_test_score was renamed into sem_test_score.
+
+A plot showing accuracy vs number of K was plotted. From there, it was determined that the best K would be 1 as it showed the highest accuracy in the plot. THe model was then retrained to have n_neighbors_ = 1. After all the retraining, the accuracy of the model came out to be 52.5%. Overall, the model’s performance is quite poor, as an accuracy of 52.5% is only slightly better than random guessing. This indicates that the features used - experience level and hours played - do not provide meaningful information for distinguishing subscribers from non-subscribers. Despite optimizing K and evaluating multiple values through cross-validation, the KNN model was unable to detect any reliable patterns in the data. However, the project was done extremely well and opened new doors for future studies regarding this topic.
+
+Reflection:
+This project was very thorough and well-executed. It allowed me to understand practical aspects of machine learning workflows, including the importance of data quality, feature relevance, model selection, and the limitations of predictive modeling when data variability is low. Engaging with the model and results enhanced my understanding of supervised classification, cross-validation, and performance evaluation metrics such as accuracy, precision, and recall. Overall, analyzing this project helped me connect theoretical machine learning concepts to a real-world dataset, understand how preprocessing and feature engineering affect model outcomes, and recognize the importance of critical evaluation when interpreting predictive results. 
+
+
+
+
